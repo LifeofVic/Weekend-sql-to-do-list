@@ -20,7 +20,7 @@
 <body>
 	<div id="initialSetup">
 		<label for="category"> To Do List Type </label>
-		<input type="text" placeholder="e.g: Priority, Long-Term, Weekend">
+		<input id="name-categoryInput" type="text" placeholder="e.g: Priority, Long-Term, Weekend">
 
 		<button type="submit" id="enter-btn"> Enter </button>
 		<button type="reset" id="clear-btn"> Clear</button>
@@ -30,6 +30,17 @@
 	<div id="content">
 		<h3 class="category-list"> Start adding to your List 👇 </h3>
 	</div>
+
+	<table class="taskSection">
+		<tr>
+			<th> Task</th>
+			<th> Complete</th>
+			<th> Delete</th>
+		</tr>
+		<tr id="newContent">
+
+		</tr>
+	</table>
 
 
 
