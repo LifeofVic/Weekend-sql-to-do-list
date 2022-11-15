@@ -14,10 +14,10 @@ DELETE FROM "ToDo" WHERE "id"= 1;
 
 SELECT * FROM "ToDo"; 
 
-INSERT INTO "ToDo" ( "description" )
+INSERT INTO "ToDo" ( "description", completed )
 VALUES ( 'Take out the Trash!' );
 
 ALTER TABLE "ToDo"
-ADD "completed" BOOLEAN;
+ADD "completed" BOOLEAN DEFAULT FALSE;
 
 SELECT * FROM "ToDo";
