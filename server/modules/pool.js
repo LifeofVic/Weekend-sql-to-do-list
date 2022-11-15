@@ -36,13 +36,13 @@ else {
 // 	idleTimeoutMillis: 30000 //30 seconds to try to connect; else cancel query
 // });
 
-// console.log on connection of pool
-// pool.on('connect', () => {
-// 	console.log('PostSQL is connected!');
-// });
+//console.log on connection of pool
+pool.on('connect', () => {
+	console.log('PostSQL is connected!');
+});
 
-// pool.on('error', (error) => {
-// 	console.log('Error with Postgres pool', error);
-// });
+pool.on('error', (error) => {
+	console.log('Error with Postgres pool', error);
+});
 
 module.exports = pool;
