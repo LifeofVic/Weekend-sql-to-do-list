@@ -28,8 +28,14 @@ function submitName() {
 
 function renderList(array) {
 	$('#taskSection').empty();
+	$('#taskSection').append(`
+	<tr>
+		<td> Task</td>
+		<td> Status</td>
+	</tr>
+
+`)
 	for (let item of array) {
-		// let list = list[i];
 		$('#taskSection').append(`
 	<tr>
 		<td> ${item.description}</td>
