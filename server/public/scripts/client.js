@@ -7,8 +7,9 @@ function onReady() {
 	$('#userNameSubmit-btn').on('click', submitName);
 	$('#userNameSubmit-btn').on('click', createTaskField);
 
-
-	// $('#enter-btn').on('click', createTaskField);
+	$('#inputSection').on('click', '#saveTask-btn', saveTask);
+	$('#taskSection').on('click', '.delete-btn', removeTask);
+	getAllTasks();
 }
 /**This function will create a header with the user's 
 *name in the header To Do list that was provided in the *input field. Once the event listener on the submit *button,  the previous content for that section will be *removed and be replaced with "username" To Do List.
@@ -25,43 +26,34 @@ function submitName() {
 `);
 }
 
-function renderList(list) {
-	$('#viewTable').empty();
-	for (let i = 0; i < list.length; i++) {
-		let list = list[i];
-		$('#viewTable').append(`
+function renderList(array) {
+	$('#taskSection').empty();
+	for (let item of array) {
+		// let list = list[i];
+		$('#taskSection').append(`
 	<tr>
-		<td> ${list.description}</td>
-		<td> ${list.isComplete}</td>
-		<button id = "delete-btn"> </button>
+		<td> ${item.description}</td>
+		<td><button class = "check-btn" data-id = ${item.id}> ✅ </button></td>
+		<td><button class = "delete-btn" data-id = ${item.id}> DELETE </button></td>
 	</tr>
 `);
-
-
-
 	}
-
+	createTaskField();
 }
 
 function createTaskField() {
 	console.log('...in createTable function on [enter] button click');
-	$('.taskSection').empty();
-	$('.taskSection').append(`
-		<tr>
-			<th> Task</th>
-			<th> Status</th>
-		</tr>
-`);
-	$('.taskSection').append(`
+	$('#inputSection').empty();
+	$('#inputSection').append(`
 	<tr>
+		<tr> 
+		<td> Add Tasks to List</td>
+		</tr>
 		<td>
-			<input id="taskIn" type="text" placeholder="Description">	
+			<input id="taskIn" type="text" placeholder="Task Description">	
 		</td>
 		<td>
-			<button id = "isComplete">  NOT COMPLETE </button>
-		</td>
-		<td>
-			<button id ="delete-button"> DELETE </button>
+			<button id = "saveTask-btn">  Enter </button>
 		</td>
 	</tr>
 `);
@@ -70,7 +62,7 @@ function saveTask() {
 	console.log('in the saveTask function');
 
 	let newTask = {
-		description: $('#taskIn').val(),
+		description: $('#taskIn').val()
 	};
 	console.log('Task preparing to send to DataBase : ', newTask);
 	$.ajax({
@@ -79,7 +71,8 @@ function saveTask() {
 		data: newTask
 	}).then(function (response) {
 		console.log('back from POST');
-		getTask();
+		$('#taskIn').val('');
+		getAllTasks();
 	}).catch(function (error) {
 		console.log('Error: ', error);
 		alert('Was not able to POST to database...');
@@ -87,7 +80,7 @@ function saveTask() {
 }
 
 function getAllTasks() {
-	console.log('in getKoalas');
+	console.log('in getAllTasks function.');
 	$.ajax({
 		method: 'GET',
 		url: '/task'
@@ -99,4 +92,17 @@ function getAllTasks() {
 	});
 }
 
+function removeTask() {
+	const id = $(this).data('id');
+	console.log(`in removeTask ${id}`)
 
+	$.ajax({
+		type: 'DELETE',
+		url: `/task/${id}`
+	}).then(function (response) {
+		console.log(`Back from DELETE:`, response);
+		getAllTasks();
+	}).catch(function (error) {
+		console.log(error);
+	})
+}

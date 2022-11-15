@@ -1,23 +1,27 @@
-CREATE TABLE "ToDo" (
-	"id" serial primary key,
-	"description" varchar(250)
+CREATE TABLE "todo" (
+	"id" SERIAL PRIMARY KEY,
+	"description" VARCHAR(250) NOT NULL,
+	"IsComplete" BOOLEAN DEFAULT FALSE NOT NULL
 );
-
-SELECT * FROM "ToDo"; 
-
-INSERT INTO "ToDo" ( "description" )
+INSERT INTO "todo" ( "description" )
 VALUES ( 'Morning Exercise' );
 
-SELECT * FROM "ToDo"; 
-
-DELETE FROM "ToDo" WHERE "id"= 1;
-
-SELECT * FROM "ToDo"; 
-
-INSERT INTO "ToDo" ( "description", completed )
+INSERT INTO "todo" ( "description" )
 VALUES ( 'Take out the Trash!' );
 
-ALTER TABLE "ToDo"
-ADD "completed" BOOLEAN DEFAULT FALSE;
+INSERT INTO "todo" ( "description" )
+VALUES ( 'Take out the Trash!' );
 
-SELECT * FROM "ToDo";
+SELECT * FROM "todo"; 
+
+DELETE FROM "todo" WHERE "id"= 1;
+
+SELECT * FROM "todo"; 
+
+INSERT INTO "todo" ( "description" )
+VALUES ( 'Take out the Trash!' );
+
+INSERT INTO "todo" ( "description" )
+VALUES ( 'Clean Room!' );
+
+SELECT * FROM "todo";
