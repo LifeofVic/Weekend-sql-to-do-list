@@ -28,13 +28,16 @@ taskRouter.get('/task', (req, res) => {
 		});
 });
 
-taskRouter.delete('/:id', (req, res) => {
-	let queryText = `DELETE FROM "todo" WHERE "id" = $1;`
-	pool.query(queryText, [req.params.id])
+taskRouter.delete('/task/:id', (req, res) => {
+	const id = req.params.id
+	console.log('DELETING the selected Task.');
+	const queryText = `DELETE FROM "todo" WHERE "id" = $1;`
+	pool.query(queryText, [id])
 		.then((result) => {
+			console.log('Task has been deleted from the database');
 			res.sendStatus(200);
 		}).catch((error) => {
-			console.log(error);
+			console.log(`We have encountered an error..., ${queryText}, error: ${error}`);
 			res.sendStatus(500);
 		})
 })
