@@ -11,34 +11,19 @@
 	<link href="./style/style.css" rel="stylesheet" />
 
 </head>
-<header class="userList">
+<div id="userList">
 	<label for="name:"> Name </label>
 	<input id="usernameInput" type="text" placeholder="username">
 	<button id="userNameSubmit-btn"> Enter </button>
-</header>
+</div>
 
 <body>
-	<div id="initialSetup">
-		<label for="category"> To Do List Type </label>
-		<input id="name-categoryInput" type="text" placeholder="e.g: Priority, Long-Term, Weekend">
-
-		<button type="submit" id="enter-btn"> Enter </button>
-		<button type="reset" id="clear-btn"> Clear</button>
-
-	</div>
-
 	<div id="content">
 		<h3 class="category-list"> Start adding to your List 👇 </h3>
 	</div>
 
 	<table class="taskSection">
-		<tr>
-			<th> Task</th>
-			<th> Complete</th>
-			<th> Delete</th>
-		</tr>
 		<tr id="newContent">
-
 		</tr>
 	</table>
 
