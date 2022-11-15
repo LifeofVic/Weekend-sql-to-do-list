@@ -37,12 +37,12 @@ else {
 // });
 
 // console.log on connection of pool
-pool.on('connect', () => {
-	console.log('PostSQL is connected!');
-});
+// pool.on('connect', () => {
+// 	console.log('PostSQL is connected!');
+// });
 
-pool.on('error', (error) => {
-	console.log('Error with Postgres pool', error);
-});
+// pool.on('error', (error) => {
+// 	console.log('Error with Postgres pool', error);
+// });
 
 module.exports = pool;
