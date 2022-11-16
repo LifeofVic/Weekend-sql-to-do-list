@@ -1,6 +1,35 @@
-#main-content,
+.complete {
+	background-color: lightgreen;
+}
+
+#taskSection,
 table {
+	border-style: inset;
 	text-align: center;
 	margin-left: auto;
 	margin-right: auto;
+	width: auto;
+	height: auto;
+}
+
+#main-content {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#userList {
+	background-color: lightblue;
+	padding: 4px;
+	margin: 8px;
+	border-radius: 30px;
+	font-size: 16pt;
+}
+
+input {
+	font-size: 12pt;
+}
+
+button {
+	font-size: 10pt;
 }

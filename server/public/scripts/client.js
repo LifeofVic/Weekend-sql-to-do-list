@@ -8,22 +8,28 @@ function onReady() {
 	$('#userNameSubmit-btn').on('click', createTaskField);
 
 	$('#inputSection').on('click', '#saveTask-btn', saveTask);
-	$('#taskSection').on('click', '.delete-btn', removeTask);
+	$('#taskSection').on('click', '#delete-btn', removeTask);
+	$('#taskSection').on('click', '#check-btn', updateCompletion);
 	getAllTasks();
 }
 /**This function will create a header with the user's 
 *name in the header To Do list that was provided in the *input field. Once the event listener on the submit *button,  the previous content for that section will be *removed and be replaced with "username" To Do List.
  */
 function submitName() {
-	console.log('...inside the submitName function.');
-	username = $('#usernameInput').val();
+	if ($('#usernameInput').val() === '') {
+		alert('You must input a name for this To Do List');
+	}
+	else {
+		console.log('...inside the submitName function.');
+		username = $('#usernameInput').val();
 
-	console.log('The user\'s name is: ', username);
+		console.log('The user\'s name is: ', username);
 
-	$('#userList').empty();
-	$('#userList').append(`
+		$('#userList').empty();
+		$('#userList').append(`
 	<h1 id="userHeader" > ${username}'s To Do List	</h1>
 `);
+	}
 }
 
 function renderList(array) {
@@ -36,13 +42,23 @@ function renderList(array) {
 
 `)
 	for (let item of array) {
-		$('#taskSection').append(`
-	<tr>
+		if (item.IsComplete === true) {
+			$('#taskSection').append(`
+	<tr class = "complete">
 		<td> ${item.description}</td>
-		<td><button class = "check-btn" data-id = ${item.id}> ✅ </button></td>
-		<td><button class = "delete-btn" data-id = ${item.id}> DELETE </button></td>
+		<td><button id = "check-btn"  data-id = ${item.id}> ✅ </button></td>
+		<td><button id = "delete-btn" data-id = ${item.id}> DELETE </button></td>
 	</tr>
 `);
+		} else {
+			$('#taskSection').append(`
+	<tr class = "incomplete">
+		<td> ${item.description}</td>
+		<td><button id = "check-btn"  data-id = ${item.id}> ✅ </button></td>
+		<td><button id = "delete-btn" data-id = ${item.id}> DELETE </button></td>
+	</tr>
+`);
+		}
 	}
 	createTaskField();
 }
@@ -52,9 +68,6 @@ function createTaskField() {
 	$('#inputSection').empty();
 	$('#inputSection').append(`
 	<tr>
-		<tr> 
-		<td> Add Tasks to List</td>
-		</tr>
 		<td>
 			<input id="taskIn" type="text" placeholder="Task Description">	
 		</td>
@@ -66,23 +79,30 @@ function createTaskField() {
 }
 function saveTask() {
 	console.log('in the saveTask function');
-
-	let newTask = {
-		description: $('#taskIn').val()
-	};
-	console.log('Task preparing to send to DataBase : ', newTask);
-	$.ajax({
-		method: 'POST',
-		url: '/task',
-		data: newTask
-	}).then(function (response) {
-		console.log('back from POST');
-		$('#taskIn').val('');
-		getAllTasks();
-	}).catch(function (error) {
-		console.log('Error: ', error);
-		alert('Was not able to POST to database...');
-	});
+	if ($('#taskIn').val() === '') {
+		alert('You need to add a Task Description before continuing.')
+	}
+	else if ($('#usernameInput').val() === '') {
+		alert('You must input a name for this To Do List');
+	}
+	else {
+		let newTask = {
+			description: $('#taskIn').val()
+		};
+		console.log('Task preparing to send to DataBase : ', newTask);
+		$.ajax({
+			method: 'POST',
+			url: '/task',
+			data: newTask
+		}).then(function (response) {
+			console.log('back from POST');
+			$('#taskIn').val('');
+			getAllTasks();
+		}).catch(function (error) {
+			console.log('Error: ', error);
+			alert('Was not able to POST to database...');
+		});
+	}
 }
 
 function getAllTasks() {
@@ -117,7 +137,7 @@ function updateCompletion() {
 	let id = $(this).data('id');
 	$.ajax({
 		method: 'PUT',
-		url: '/task/${id}'
+		url: `/task/${id}`
 	}).then(function (response) {
 		console.log('update data', response);
 		getAllTasks();

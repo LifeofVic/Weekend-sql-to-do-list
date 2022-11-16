@@ -39,13 +39,13 @@ taskRouter.delete('/task/:id', (req, res) => {
 		}).catch((error) => {
 			console.log(`We have encountered an error..., ${queryText}, error: ${error}`);
 			res.sendStatus(500);
-		})
+		});
 })
 
-taskRouter.put('/:id', (req, res) => {
+taskRouter.put('/task/:id', (req, res) => {
 	let id = req.params.id;
 	console.log('Updating the status of task.');
-	let queryText = `UPDATE "todo" SET "isComplete" = 'true' WHERE "id" = $1;`;
+	let queryText = `UPDATE "todo" SET "IsComplete" = 'true' WHERE "id" = $1;`;
 	pool.query(queryText, [id])
 		.then(() => {
 			console.log('Updated ${id} with the new status, ${id}');
@@ -53,9 +53,7 @@ taskRouter.put('/:id', (req, res) => {
 		}).catch((error) => {
 			console.log('Error in router.put : ', error);
 			res.sendStatus(500);
-		})
-
-
+		});
 })
 
 
