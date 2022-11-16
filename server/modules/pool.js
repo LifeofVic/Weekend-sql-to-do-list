@@ -1,5 +1,4 @@
 const pg = require('pg');
-const Pool = pg.Pool;
 let pool;
 
 // When our app is deployed to the internet 
