@@ -2,7 +2,7 @@ const express = require('express');
 const taskRouter = express.Router();
 const pool = require('../modules/pool');
 
-
+//router to inject the sql to the database in order to add daa from the client side to the data base with the values from the the input fields.
 taskRouter.post('/task', (req, res) => {
 	const newTask = req.body;
 	let queryString = `INSERT INTO "todo" 
@@ -15,7 +15,7 @@ taskRouter.post('/task', (req, res) => {
 			res.sendStatus(500);
 		});
 });
-
+//This will go to the database and retrieve all the objects in the database and pass it to the render in order to display accordingly to the DOM.
 taskRouter.get('/task', (req, res) => {
 	let queryText = `SELECT * FROM "todo";`;
 	pool.query(queryText)
@@ -28,6 +28,7 @@ taskRouter.get('/task', (req, res) => {
 		});
 });
 
+//This will utilize the id value created by the database to remove that object based on the id value of where the delete button was clicked on.
 taskRouter.delete('/task/:id', (req, res) => {
 	const id = req.params.id
 	console.log('DELETING the selected Task.');
@@ -41,7 +42,7 @@ taskRouter.delete('/task/:id', (req, res) => {
 			res.sendStatus(500);
 		});
 })
-
+//This will allow to update the property of "IsComplete" to true in order to be able to utilize the css styling to change the background color to green wherever the table row is displayed on the DOM.
 taskRouter.put('/task/:id', (req, res) => {
 	let id = req.params.id;
 	console.log('Updating the status of task.');
@@ -55,8 +56,5 @@ taskRouter.put('/task/:id', (req, res) => {
 			res.sendStatus(500);
 		});
 })
-
-
-
 
 module.exports = taskRouter;
