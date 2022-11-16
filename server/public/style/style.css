@@ -19,7 +19,7 @@ table {
 }
 
 #userList {
-	background-color: lightblue;
+	background-color: steelblue;
 	padding: 4px;
 	margin: 8px;
 	border-radius: 30px;
@@ -32,4 +32,8 @@ input {
 
 button {
 	font-size: 10pt;
+}
+
+body {
+	background-color: lightgrey;
 }

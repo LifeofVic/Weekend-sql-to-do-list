@@ -22,12 +22,13 @@ function submitName() {
 	else {
 		console.log('...inside the submitName function.');
 		username = $('#usernameInput').val();
+		username = username.toUpperCase();
 
 		console.log('The user\'s name is: ', username);
 
 		$('#userList').empty();
 		$('#userList').append(`
-	<h1 id="userHeader" > ${username}'s To Do List	</h1>
+	<h1 id="userHeader" > ${username}'S TO DO LIST ✍️	</h1>
 `);
 	}
 }
