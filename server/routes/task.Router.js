@@ -42,4 +42,23 @@ taskRouter.delete('/task/:id', (req, res) => {
 		})
 })
 
+taskRouter.put('/:id', (req, res) => {
+	let id = req.params.id;
+	console.log('Updating the status of task.');
+	let queryText = `UPDATE "todo" SET "isComplete" = 'true' WHERE "id" = $1;`;
+	pool.query(queryText, [id])
+		.then(() => {
+			console.log('Updated ${id} with the new status, ${id}');
+			res.sendStatus(200);
+		}).catch((error) => {
+			console.log('Error in router.put : ', error);
+			res.sendStatus(500);
+		})
+
+
+})
+
+
+
+
 module.exports = taskRouter;

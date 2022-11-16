@@ -112,3 +112,16 @@ function removeTask() {
 		console.log(error);
 	})
 }
+
+function updateCompletion() {
+	let id = $(this).data('id');
+	$.ajax({
+		method: 'PUT',
+		url: '/task/${id}'
+	}).then(function (response) {
+		console.log('update data', response);
+		getAllTasks();
+	}).catch(function (error) {
+		console.log('Something went wrong with updating using PUT method: ', error);
+	});
+}
